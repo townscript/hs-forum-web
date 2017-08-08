@@ -7,10 +7,17 @@ angular.module('myApp.home', ['ngRoute'])
     controller: 'homeCtrl'
   });
 }])
-.controller('homeCtrl', [function() {
-	getAllTopics();
+.controller('homeCtrl', ['$scope','$http', function($scope, $http) {
+    $http.get("http://localhost:8080/rest/topic/getAllTopics")
+    	.success(function(data, status, headers, config) {
+    		//alert("data: "+data);
+          $scope.topics = data;
+     	})
+        .error(function(data, status, headers, config) {
+          // log error
+          alert("Some error, try again!");
+    	});
 }]);
-
 
 //to get all topics on home page
 function getAllTopics() {
@@ -19,7 +26,6 @@ function getAllTopics() {
 	var topicsUrl = "http://localhost:8080/rest/topic/getAllTopics";
 
 	//$('.ajax-loader').css("visibility", "visible");
-
 	$.ajax({
 		type: "GET",
 		url: topicsUrl,
