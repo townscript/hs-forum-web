@@ -1,13 +1,12 @@
-<p>This is the partial for Login.</p>
 
 <div id='container' class='container navbar navbar-default navbar-rigth'>
 
 	<div class='row'>
-		<a href='index.html' class='navbar-brand'>ForumApp</a>
+		<a ng-href='home' class='navbar-brand'>ForumApp</a>
 	</div>
 	
 	<div id='userlogin'>
-		<form  action='#'>
+		<form  ng-submit="loginCheck()">
 			<div class='row well well-lg'>
 				<div class='row well-md' id="userlogin_header">
         			<h3><span>User Login</span></h3>
@@ -17,7 +16,7 @@
 						<label> User Name </label> 
 					</div>
 					<div class='col-md-6'>
-						<input type="text" id="username" name="username" autocomplete="off" required/>
+						<input type="text" id="username" name="username" autocomplete="off" ng-model="user.uname" required/>
 					</div>
 				</div>
 				<div class='row well-md'>
@@ -25,7 +24,7 @@
 						<label> Password </label> 
 					</div>
 					<div class='col-md-6'>
-						<input type="password" id="password" name="password" autocomplete="off" required/>
+						<input type="password" id="password" name="password" autocomplete="off" ng-model="user.pwd" required/>
 					</div>
 				</div>
 				<div class='row well-md'>
@@ -33,7 +32,7 @@
 				</div>
 				<div class='row'>
 					<div class='col-md-1'>
-						<input type='button' value="Submit" name="Submit" class='btn btn-success'  onclick="loginCheck()"/>
+						<input type='submit' value="Submit" name="Submit" class='btn btn-success'/>
 					</div>
 					<div class='col-md-1'>
 						<input type='button' value="Cancel" name='cancel' class='btn btn-danger'/>
@@ -45,7 +44,7 @@
 				<p></p>
 			</div>
 		<div class='userlogin_links	'>Not Registered Yet? 
-			<a href="signup" id="register"><strong><span>Register >>></span></strong></a>
+			<a ng-href="signup" id="register"><strong><span>Register >>></span></strong></a>
 		</div>
 	</div>
 </div>

@@ -17,9 +17,3 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 }]);
 
 
-/*(function(){
-	var app=angular.module('myApp',[]);
-	app.controller('HelloController', function(){
-		alert("Hello World");
-	});
-})();*/
