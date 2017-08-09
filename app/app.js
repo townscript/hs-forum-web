@@ -14,6 +14,23 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
 	$routeProvider.otherwise({redirectTo: '/login'});
 	//$routeProvider.otherwise({redirectTo: '/home'});
-}]);
+}])
+.factory('userData', function() {
+ var userSavedData = {};
+
+ var set = function(data) {
+  userSavedData = data;
+ };
+
+ var get = function() {
+  return userSavedData;
+ };
+
+ return {
+  set: set,
+  get: get
+ };
+
+});
 
 
