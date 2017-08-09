@@ -6,13 +6,14 @@ angular.module('myApp', [
   'myApp.login',
   'myApp.signup',
   'myApp.home',
+  'myApp.topic',
   'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   	$locationProvider.hashPrefix('!');
 
-	//$routeProvider.otherwise({redirectTo: '/login'});
-	$routeProvider.otherwise({redirectTo: '/home'});
+	$routeProvider.otherwise({redirectTo: '/login'});
+	//$routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
 
