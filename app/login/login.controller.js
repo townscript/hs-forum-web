@@ -5,29 +5,39 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location',/* 'AuthenticationService', 'FlashService'*/];
-    function LoginController($location/*, AuthenticationService, FlashService*/) {
+    LoginController.$inject = ['$location', '$scope', '$http'/* 'AuthenticationService', 'FlashService'*/];
+    function LoginController($location, $scope, $http/*, AuthenticationService, FlashService*/) {
         var vm = this;
-
         vm.login = login;
 
-        (function initController() {
-            // reset login status
-            //AuthenticationService.ClearCredentials();
-        })();
-
         function login() {
-            alert("inside login...");
-            /*vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
+            $scope.success = true;
+            //alert("inside login...");
+            vm.dataLoading = true;
+
+            var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
+            var dataJson="{\"userName\":\""+vm.username+"\",\"password\":\""+vm.password+"\"}";
+
+            $http({method: "POST", url: loginUrl+dataJson, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                  //console.log(response);
+                  //alert("response.data: "+JSON.stringify(response.data));
+                  //alert("response.data: "+response.data);
+                  if(response.data){
+                    $location.path('/home');
+
+                  } else{
+                    //$scope.success = false;
                     vm.dataLoading = false;
-                }
-            });*/
+                  }
+
+                }, function(response) {
+                  console.log(response);
+                  //alert("funcResponse: "+response);
+                });
+
         };
     }
 

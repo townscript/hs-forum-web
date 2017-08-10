@@ -27,6 +27,13 @@
                 });*/
             //$location.path('/login');
         }
+
+        function validatePwd(){
+            alert("inside register.validatePwd: ");
+           // alert("pwd: "+vm.user.password);
+
+        }
+
     }
 
 })();
