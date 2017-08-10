@@ -1,62 +1,51 @@
-'use strict';
+﻿(function () {
+    'use strict';
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.login',
-  'myApp.signup',
-  'myApp.home',
-  'myApp.topic',
-  'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-    //$locationProvider.hashPrefix('!');
+    angular
+        .module('app', ['ngRoute', 'ngCookies'])
+        .config(config)
+        .run(run);
 
-    $routeProvider
-    .when('/home', {
-        controller: 'HomeController',
-        templateUrl: 'home/home.html'
-        //controllerAs: 'vm'
-    })
+    config.$inject = ['$routeProvider', '$locationProvider'];
+    function config($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/', {
+                controller: 'HomeController',
+                templateUrl: 'home/home.view.html',
+                controllerAs: 'vm'
+            })
 
-    .when('/login', {
-        controller: 'LoginController',
-        templateUrl: 'login/login.html'
-        //controllerAs: 'vm'
-    })
+            .when('/login', {
+                controller: 'LoginController',
+                templateUrl: 'login/login.view.html',
+                controllerAs: 'vm'
+            })
 
-    .when('/signup', {
-        controller: 'signupController',
-        templateUrl: 'signup/signup.html'
-        //controllerAs: 'vm'
-    })
+            .when('/register', {
+                controller: 'RegisterController',
+                templateUrl: 'register/register.view.html',
+                controllerAs: 'vm'
+            })
 
-    .when('/topic', {
-        controller: 'to[picController',
-        templateUrl: 'topic/topic.html'
-        //controllerAs: 'vm'
-    })
+            .otherwise({ redirectTo: '/login' });
+    }
 
-    .otherwise({ redirectTo: '/login' });
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+    function run($rootScope, $location, $cookies, $http) {
+        // keep user logged in after page refresh
+        $rootScope.globals = $cookies.getObject('globals') || {};
+        if ($rootScope.globals.currentUser) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+        }
 
-    //$routeProvider.otherwise({redirectTo: '/login'});
-	//$routeProvider.otherwise({redirectTo: '/home'});
-}])
-.factory('userData', function() {
- var userSavedData = {};
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in and trying to access a restricted page
+            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            var loggedIn = $rootScope.globals.currentUser;
+            if (restrictedPage && !loggedIn) {
+                $location.path('/login');
+            }
+        });
+    }
 
- var set = function(data) {
-  userSavedData = data;
- };
-
- var get = function() {
-  return userSavedData;
- };
-
- return {
-  set: set,
-  get: get
- };
-
-});
-
+})();
