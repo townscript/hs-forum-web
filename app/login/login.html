@@ -1,12 +1,11 @@
-
 <div id='container' class='container navbar navbar-default navbar-rigth'>
 
 	<div class='row'>
-		<a ng-href='home' class='navbar-brand'>ForumApp</a>
+		<a ng-href='#!/home' class='navbar-brand'>ForumApp</a>
 	</div>
 	
 	<div id='userlogin'>
-		<form ng-submit="loginCheck()">
+		<form name="form" ng-submit="loginCtrl.loginCheck()">
 			<div class='row well well-lg'>
 				<div class='row well-md' id="userlogin_header">
         			<h3><span>User Login</span></h3>
@@ -32,7 +31,9 @@
 				</div>
 				<div class='row'>
 					<div class='col-md-1'>
-						<button type='submit' name="Submit" class='btn btn-success'>Submit</button>
+						<!-- <button type='submit' ng-disabled="form.$invalid || user.dataLoading" class='btn btn-success'>Login</button> -->
+						<button type='submit' class='btn btn-success'>Login</button>
+						<!-- <img ng-if="user.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> -->
 					</div>
 					<div class='col-md-1'>
 						<input type='button' value="Cancel" name='cancel' class='btn btn-danger'/>
@@ -41,11 +42,10 @@
 			</div>
 		</form>
 		<div class='row well-xs'>
-				<p></p>
-			</div>
+			<p></p>
+		</div>
 		<div class='userlogin_links	'>Not Registered Yet? 
-			<a ng-href="signup" id="register"><strong><span>Register >>></span></strong></a>
+			<a ng-href="#!/signup" id="register"><strong><span>Register >>></span></strong></a>
 		</div>
 	</div>
 </div>
-

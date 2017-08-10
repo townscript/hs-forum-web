@@ -10,9 +10,36 @@ angular.module('myApp', [
   'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  	$locationProvider.hashPrefix('!');
+    //$locationProvider.hashPrefix('!');
 
-	$routeProvider.otherwise({redirectTo: '/login'});
+    $routeProvider
+    .when('/home', {
+        controller: 'HomeController',
+        templateUrl: 'home/home.html'
+        //controllerAs: 'vm'
+    })
+
+    .when('/login', {
+        controller: 'LoginController',
+        templateUrl: 'login/login.html'
+        //controllerAs: 'vm'
+    })
+
+    .when('/signup', {
+        controller: 'signupController',
+        templateUrl: 'signup/signup.html'
+        //controllerAs: 'vm'
+    })
+
+    .when('/topic', {
+        controller: 'to[picController',
+        templateUrl: 'topic/topic.html'
+        //controllerAs: 'vm'
+    })
+
+    .otherwise({ redirectTo: '/login' });
+
+    //$routeProvider.otherwise({redirectTo: '/login'});
 	//$routeProvider.otherwise({redirectTo: '/home'});
 }])
 .factory('userData', function() {

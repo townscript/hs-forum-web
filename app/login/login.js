@@ -2,63 +2,57 @@
 
 angular.module('myApp.login', ['ngRoute','ngResource'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {
+/*.config(['$routeProvider', function($routeProvider) {
+  $routeProvider
+  .when('/login', {
     templateUrl: 'login/login.html',
-    controller: 'loginCtrl'
+    controller: 'LoginController'
   });
-}])
+}])*/
 
-.controller('loginCtrl', ['$location','userData', '$scope', '$http', function loginCheck($location, userData, $scope, $http) {
+.controller('LoginController',LoginController);
 
-	alert("inside loginCheck()");
+LoginController.$inject = ['$location','userData', '$scope', '$http'];
 
-$scope.user={};
-$scope.success=true;
 
-/*
-$http({method: "GET", url: "/Todolist/user/checksession", headers: {'Access-Control-Allow-Origin':'*'}})
-.then(function(response) {
-          console.log(response);
-          $scope.checksession = response.data;
-          console.log($scope.checksession);
-          if($scope.checksession != -99){
-            console.log($scope.checksession);
-            $location.path('/dashboard');
-          } 
-        }, function(response) {
-          console.log(response);
-});
-*/
+function LoginController($location, userData, $scope, $http) {
 
-//$scope.login = function() {
-//	console.log($scope.user);
+	alert("inside login");
 
-var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
-var dataJson="{\"userName\":\""+$scope.user.uname+"\",\"password\":\""+$scope.user.pwd+"\"}";
+	$scope.user={};
+	$scope.success=true;
 
-$http({method: "POST", url: loginUrl+dataJson, 
-	headers: {'Access-Control-Allow-Origin':'*'}
-})
-.then(function(response) {
-		  //console.log(response);
-		  //alert(JSON.stringify(response));
-          $scope.res = response.data;
-          //alert("response.data: "+JSON.stringify(response.data));
-          userData.set($scope.res);
-          console.log($scope.res.username);
-          if(response.data){
-            console.log($scope.res.username);
-            $location.path('/home');
+	//var user = this;
+	//user.login = login;
 
-          } else{
-            $scope.success = false;
-          }
-        }, function(response) {
-          console.log(response);
-      });
-   
-//};
+	function loginCheck() {
+		alert("inside loginCheck()");
+	    //user.dataLoading = true;
+		var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
+		var dataJson="{\"userName\":\""+$scope.user.uname+"\",\"password\":\""+$scope.user.pwd+"\"}";
 
-}]);
+		$http({method: "POST", url: loginUrl+dataJson, 
+			headers: {'Access-Control-Allow-Origin':'*'}
+		})
+		.then(function(response) {
+			  //console.log(response);
+			  //alert(JSON.stringify(response));
+	          $scope.res = response.data;
+	          //alert("response.data: "+JSON.stringify(response.data));
+	          userData.set($scope.res);
+	          console.log($scope.res.username);
+	          if(response.data){
+	          	console.log($scope.res.username);
+	            $location.path('/home');
 
+	          } else{
+	            $scope.success = false;
+	          }
+
+	          //user.dataLoading = false;
+
+	        }, function(response) {
+	          console.log(response);
+	    });
+	}
+};
