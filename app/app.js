@@ -33,4 +33,3 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
 });
 
-

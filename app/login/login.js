@@ -9,10 +9,27 @@ angular.module('myApp.login', ['ngRoute','ngResource'])
   });
 }])
 
-.controller('loginCtrl', ['$location','userData', '$scope', '$http', function login($location, userData, $scope, $http) {
+.controller('loginCtrl', ['$location','userData', '$scope', '$http', function loginCheck($location, userData, $scope, $http) {
+
+	alert("inside loginCheck()");
 
 $scope.user={};
 $scope.success=true;
+
+/*
+$http({method: "GET", url: "/Todolist/user/checksession", headers: {'Access-Control-Allow-Origin':'*'}})
+.then(function(response) {
+          console.log(response);
+          $scope.checksession = response.data;
+          console.log($scope.checksession);
+          if($scope.checksession != -99){
+            console.log($scope.checksession);
+            $location.path('/dashboard');
+          } 
+        }, function(response) {
+          console.log(response);
+});
+*/
 
 //$scope.login = function() {
 //	console.log($scope.user);
@@ -21,15 +38,16 @@ var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
 var dataJson="{\"userName\":\""+$scope.user.uname+"\",\"password\":\""+$scope.user.pwd+"\"}";
 
 $http({method: "POST", url: loginUrl+dataJson, 
-	headers: {'Content-Type': 'application/x-www-form-urlencoded','Access-Control-Allow-Origin':'*'}
+	headers: {'Access-Control-Allow-Origin':'*'}
 })
 .then(function(response) {
-		  console.log(response);
-		  alert(response);
+		  //console.log(response);
+		  //alert(JSON.stringify(response));
           $scope.res = response.data;
+          //alert("response.data: "+JSON.stringify(response.data));
           userData.set($scope.res);
           console.log($scope.res.username);
-          if(typeof $scope.res.username === "string"){
+          if(response.data){
             console.log($scope.res.username);
             $location.path('/home');
 
