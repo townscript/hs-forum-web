@@ -1,4 +1,4 @@
-﻿<div class="col-md-6 col-md-offset-3">
+﻿<!-- <div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
     <form name="form" ng-submit="vm.register()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
@@ -27,4 +27,75 @@
             <a href="#!/login" class="btn btn-link">Cancel</a>
         </div>
     </form>
+</div> -->
+
+<div id='container' class='container navbar navbar-default navbar-rigth'>
+    <div class='row'>
+        <a ng-href='#/home' class='navbar-brand'>ForumApp</a>
+    </div>
+    <div id='usersignup'>
+        
+        <form ng-submit='vm.register()'>
+            <div class='row well well-lg'>
+                <div class='row' id="usersignup_header">
+                    <h3><span>User SignUp</span></h3>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <label> Email Id </label> 
+                    </div>
+                    <div class='col-md-6'>
+                        <input type='text' id="email" name='email' ng-model='user.email' required/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <label> Mobile Number </label> 
+                    </div>
+                    <div class='col-md-6'>
+                        <input type="text" id="mobile" name='mobile' ng-model='user.mobile' required/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <label> User Name </label> 
+                    </div>
+                    <div class='col-md-6'>
+                        <input type="text" id="username" name='username' ng-model='user.uname' required/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <label> Password </label> 
+                    </div>
+                    <div class='col-md-6'>
+                        <input type='password' id="password" name='password' autocomplete="off" ng-model='user.pwd' required/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <label> Retype Password </label> 
+                    </div>
+                    <div class='col-md-6'>
+                        <input type='password' id="password2" name='password2' autocomplete="off" ng-model='user.pwd2' required onblur="validatePwd()"/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <p></p>
+                </div>
+                <div class='row'>
+                    <div class='col-md-2'>
+                        <input type='button' value="Submit" name='submit' class='btn btn-success'/>
+                    </div>
+                    <div class='col-md-2'>
+                        <input type='button' value="Cancel" name='cancel' class='btn btn-danger' onclick='redirectToLogin()'/>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    
 </div>
+
+

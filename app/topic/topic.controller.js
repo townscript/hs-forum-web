@@ -3,16 +3,17 @@
 
     angular
         .module('app')
-        .controller('RegisterController', RegisterController);
+        .controller('TopicController', TopicController);
 
-    RegisterController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
-    function RegisterController(UserService, $location, $rootScope, FlashService) {
+    TopicController.$inject = [/*'UserService', */'$location'/*, '$rootScope', 'FlashService'*/];
+    function TopicController(/*UserService, */$location/*, $rootScope, FlashService*/) {
         var vm = this;
-
-        vm.register = register;
-
-        function register() {
-            vm.dataLoading = true;
+        
+        vm.topic = topic;
+        
+        function topic() {
+            alert("inside topic");
+            /*vm.dataLoading = true;
             UserService.Create(vm.user)
                 .then(function (response) {
                     if (response.success) {
@@ -22,7 +23,7 @@
                         FlashService.Error(response.message);
                         vm.dataLoading = false;
                     }
-                });
+                });*/
         }
     }
 
