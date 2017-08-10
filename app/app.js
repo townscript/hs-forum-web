@@ -2,9 +2,9 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
-        .config(config)
-        .run(run);
+        .module('app', ['ngRoute'])
+        .config(config);
+        //.run(run);
 
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
@@ -30,7 +30,7 @@
             .otherwise({ redirectTo: '/login' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+    /*run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -46,6 +46,6 @@
                 $location.path('/login');
             }
         });
-    }
+    }*/
 
 })();
