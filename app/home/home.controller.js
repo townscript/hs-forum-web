@@ -5,40 +5,27 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope'];
-    function HomeController(UserService, $rootScope) {
+    HomeController.$inject = ['$location', '$scope', '$http'];
+
+    function HomeController($location, $scope, $http) {
         var vm = this;
 
         vm.user = null;
         vm.allUsers = [];
-        vm.deleteUser = deleteUser;
+        //vm.deleteUser = deleteUser;
 
         initController();
 
         function initController() {
-            loadCurrentUser();
-            loadAllUsers();
+            getAllTopipcs();
         }
 
-        function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                });
-        }
+        function getAllTopipcs() {
+            var topicsUrl = "http://localhost:8080/forum-api/topic/getAllTopics";
 
-        function loadAllUsers() {
-            UserService.GetAll()
-                .then(function (users) {
-                    vm.allUsers = users;
-                });
-        }
+            
 
-        function deleteUser(id) {
-            UserService.Delete(id)
-            .then(function () {
-                loadAllUsers();
-            });
+            
         }
     }
 

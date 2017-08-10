@@ -1,11 +1,23 @@
-﻿<h1>Hi {{vm.user.firstName}}!</h1>
-<p>You're logged in!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
-<p>&nbsp;</p>
-<p><a href="#!/login" class="btn btn-primary">Logout</a></p>
+﻿<div id='container' class='container navbar navbar-default'>
+	<div class='row bg-info text-primary'>
+		<a class='nav navbar-brand'><b>ForumApp</b></a>
+		<!-- <ul class='list-unstyled list-inline nav navbar-nav navbar-right'>
+			<li><a class='nav navbar-nav navbar-brand' href='home.html'>Home</a></li>
+		</ul> -->
+	</div>
+	
+	<div class='row well well-lg'>
+		<div class='row right'>
+			<a name='createTopic' id='createTopic' href="#!/createTopic" class='btn btn-primary btn-md pull-right'>Create Topic</a>
+		</div>
+		</br>
+		<div id="topicList">
+		</div>
+		<div id="userIdDiv">
+			<input type='hidden' id='userName' name='userName' value='swapnil'></input>
+			<input type='hidden' id='userId' name='userId' value='6'></input>
+			<input type='hidden' id='emailId' name='emailId' value='swapnil.solanki@townscript.com'></input>
+		</div>
+	</div>
+	
+</div>

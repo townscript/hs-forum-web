@@ -5,8 +5,8 @@
         .module('app')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = [/*'UserService', */'$location'/*, '$rootScope', 'FlashService'*/];
-    function RegisterController(/*UserService, */$location/*, $rootScope, FlashService*/) {
+    RegisterController.$inject = ['$location', '$scope', '$http'];
+    function RegisterController($location, $scope, $http) {
         alert("inside register");
         var vm = this;
 
