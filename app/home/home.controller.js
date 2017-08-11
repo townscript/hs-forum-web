@@ -5,14 +5,12 @@
         .module('app')
         .controller('HomeController', HomeController)
         .filter('toDateObj', toDateObj);
+        //.filter('reverse', reverse);
 
     HomeController.$inject = ['$location', '$scope', '$http'];
     function HomeController($location, $scope, $http) {
         var vm = this;
-
         vm.user = null;
-        vm.allUsers = [];
-        //vm.deleteUser = deleteUser;
 
         var jsonData={  "status" : "success",
                         "topicList" : [
@@ -152,5 +150,11 @@
             return new Date(dateString);
         };   
     }
+
+    /*function reverse() {
+        return function(items) {
+            return items.slice().reverse();
+        }; 
+    }*/
 
 })();
