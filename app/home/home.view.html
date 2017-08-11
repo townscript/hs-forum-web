@@ -12,15 +12,34 @@
 			<a name='createTopic' id='createTopic' href="#!/createTopic" class='btn btn-primary btn-md pull-right'>Create Topic</a>
 		</div>
 		</br>
-		<div id="topicList">
-			<ul class='list-group-item'>
+		<div id="topicList" ng-repeat="topic in topics">
+			<!-- <ul class='list-group-item'>
 				<li class="list-group-item" ng-repeat="topic in topics">
 					<h3>
 					{{topic.title}}
-					<!-- <em class="pull-right">{{topic.createdBy}}</em> -->
 					</h3>
 				</li>
-			</ul>
+			</ul> -->
+
+			<!-- var topicI="topic-"+i; -->
+			<div id='{{topic.id}}' class='row well well-lg marginTopics'>
+				<label class='row well strong lead col-md-12 large bg-faded text-primary marginContents' id='title-topic-{{topic.id}}'>{{topic.title}}</label>
+				</br><label class='row well col-md-12 medium marginContents' id='description'><label class='small text-info'>Description:</label></br> {{topic.description}}</label>
+				</br><label class='small text-warning' id='upvoteLblVar'>{{topic.upVoteCount}} UpVotes</label>
+				&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small text-warning' id='downvoteLblVar'>{{topic.downVoteCount}} DownVotes
+				</label>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small' id='createdBy'><label class='text-muted'>Created By: 
+				</label> {{topic.createdBy}}</label>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small' id='createdAt'><label class='text-muted'>Created At: 
+				</label> {{topic.createdAt | date}} </label>
+				</br>&nbsp&nbsp<button class='btn btn-xs' id='upvoteBtnVar' name='upvoteBtnVar' ng-click='"+syncVotesFunc4Up+"'>
+				<img class='upvote-img' id='upvote'></img></button>
+				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down'>
+				<img class='downvote-img' id='downvote'></img></button>
+
+			</div>
+
+
 		</div>
 		<div id="userIdDiv">
 			<input type='hidden' id='userName' name='userName' value='swapnil'></input>

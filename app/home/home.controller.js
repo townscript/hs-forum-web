@@ -115,6 +115,10 @@
 
             
         }
+
+        function syncVotesFunc4Up(){
+            alert("inside syncVotesFunc4Up");
+        }
     }
 
 })();
