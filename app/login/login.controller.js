@@ -5,13 +5,14 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', '$http'/* 'AuthenticationService', 'FlashService'*/];
-    function LoginController($location, $scope, $http/*, AuthenticationService, FlashService*/) {
+    LoginController.$inject = ['$location', '$scope', '$http'];
+    function LoginController($location, $scope, $http) {
         var vm = this;
         vm.login = login;
 
         function login() {
             $scope.success = true;
+            $scope.username=vm.username;
             //alert("inside login...");
             vm.dataLoading = true;
 

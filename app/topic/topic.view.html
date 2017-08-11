@@ -1,4 +1,5 @@
-﻿<div id='container' class='container navbar navbar-default'>
+﻿
+<div id='container' class='container navbar navbar-default navbar-rigth'>
 
     <div class='row bg-info text-primary'>
         <div class='col-md-2'>
@@ -9,15 +10,15 @@
         </ul>
     </div>
     
-    <div id="createTopic">
-        <form name="form" ng-submit="mv.createTopic()">
+    <div id='createTopic'>
+        <form name="form" ng-submit="vm.createTopic()">
             <div class='row well well-lg'>
                 <div class='row'>
                     <div class='col-md-1'>
                         <label> Title </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='title' name='title' ng-model="mv.topic.title" required/>
+                        <input type='text' id='title' name='title' ng-model="vm.topic.title" required/>
                     </div>
                 </div>
                 <div class='row'>
@@ -25,7 +26,7 @@
                         <label> Description </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='description' name='description' ng-model="mv.topic.description" required/>
+                        <input type='text' id='description' name='description' ng-model="vm.topic.description" required/>
                     </div>
                 </div>
                 <div class='row'>
@@ -33,7 +34,7 @@
                         <label> Tags </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='tags' name='tags' ng-model="mv.topic.tags" placeholder='e.g. sports,music, etc'/>
+                        <input type='text' id='tags' name='tags' ng-model="vm.topic.tags" placeholder='e.g. sports,music, etc'/>
                     </div>
                 </div>
                 <div class='row'>
@@ -47,8 +48,8 @@
                         <a href="#/home" class="btn btn-link">Cancel</a>
                     </div>
                 </div>
-                
             </div>
         </form>
     </div>
 </div>
+

@@ -10,9 +10,76 @@
     HomeController.$inject = ['$location', '$scope', '$http'];
     function HomeController($location, $scope, $http) {
         var vm = this;
-        vm.user = null;
+        //vm.user = null;
+        
+        //var obj = JSON.parse(jsonData);
+        //var topicList= obj.topicList;
+        //vm.topics=jsonData.topicList;
+        //this.topics=jsonData.topicList;
 
-        var jsonData={  "status" : "success",
+        //$scope.topics=jsonData.topicList;
+
+        //alert(JSON.stringify(jsonData.topicList));
+
+        initController();
+
+        function initController() {
+            getAllTopics();
+        }
+
+        function getAllTopics() {
+
+            var topicsUrl = "http://localhost:8080/rest/topic/getAllTopics";
+            $scope.success = true;
+            //alert("inside getAllTopics...");
+            vm.dataLoading = true;
+
+            $http({method: "GET", url: topicsUrl, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                  //console.log(response);
+                var data = angular.fromJson(response.data)
+                if(data.status=="success"){
+                    //alert("success");
+                    $scope.topics=data.topicList;
+
+                } else{
+                    vm.dataLoading = false;
+                    alert("Some error, try again!");
+                }
+
+            }, function(response) {
+              console.log(response);
+              //alert("funcResponse: "+response);
+            });
+        };
+
+        function syncVotesFunc4Up(){
+            alert("inside syncVotesFunc4Up");
+        }
+
+    }
+
+    //toDateObj.$inject = ['$scope'];
+    function toDateObj() {
+        return function(dateString) {
+            return new Date(dateString);
+        };   
+    }
+
+    /*function reverse() {
+        return function(items) {
+            return items.slice().reverse();
+        }; 
+    }*/
+
+})();
+
+
+
+/*
+var jsonData={  "status" : "success",
                         "topicList" : [
                                        {
                                            "id":"1",
@@ -93,68 +160,7 @@
                                        ]
                 };
 
-        //var obj = JSON.parse(jsonData);
-        //var topicList= obj.topicList;
-        //vm.topics=jsonData.topicList;
-        //this.topics=jsonData.topicList;
-        
 
-        //$scope.topics=jsonData.topicList;
-        
 
-        //alert(JSON.stringify(jsonData.topicList));
+*/
 
-        initController();
-
-        function initController() {
-            getAllTopics();
-        }
-
-        function getAllTopics() {
-
-            var topicsUrl = "http://localhost:8080/rest/topic/getAllTopics";
-            $scope.success = true;
-            //alert("inside getAllTopics...");
-            vm.dataLoading = true;
-
-            $http({method: "GET", url: topicsUrl, 
-                headers: {'Access-Control-Allow-Origin':'*'}
-            })
-            .then(function(response) {
-                  //console.log(response);
-                var data = angular.fromJson(response.data)
-                if(data.status=="success"){
-                    //alert("success");
-                    $scope.topics=data.topicList;
-
-                } else{
-                    vm.dataLoading = false;
-                    alert("Some error, try again!");
-                }
-
-            }, function(response) {
-              console.log(response);
-              //alert("funcResponse: "+response);
-            });
-        };
-
-        function syncVotesFunc4Up(){
-            alert("inside syncVotesFunc4Up");
-        }
-
-    }
-
-    //toDateObj.$inject = ['$scope'];
-    function toDateObj() {
-        return function(dateString) {
-            return new Date(dateString);
-        };   
-    }
-
-    /*function reverse() {
-        return function(items) {
-            return items.slice().reverse();
-        }; 
-    }*/
-
-})();
