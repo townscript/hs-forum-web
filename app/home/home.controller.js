@@ -98,9 +98,11 @@
         //var obj = JSON.parse(jsonData);
         //var topicList= obj.topicList;
         //vm.topics=jsonData.topicList;
-        this.topics=jsonData.topicList;
-        $scope.topics=jsonData.topicList;
-        //alert(this.topics[0].description);
+        //this.topics=jsonData.topicList;
+        
+
+        //$scope.topics=jsonData.topicList;
+        
 
         //alert(JSON.stringify(jsonData.topicList));
 
@@ -111,14 +113,32 @@
         }
 
         function getAllTopics() {
-            var topicsUrl = "http://localhost:8080/forum-api/topic/getAllTopics";
 
-            
-        }
+            var topicsUrl = "http://localhost:8080/rest/topic/getAllTopics";
+            $scope.success = true;
+            //alert("inside getAllTopics...");
+            vm.dataLoading = true;
 
-        function Ctrl($scope) {
-            $scope.date = new Date("1990-11-25 14:35:00");
-        }
+            $http({method: "GET", url: topicsUrl, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                  //console.log(response);
+                var data = angular.fromJson(response.data)
+                if(data.status=="success"){
+                    //alert("success");
+                    $scope.topics=data.topicList;
+
+                } else{
+                    vm.dataLoading = false;
+                    alert("Some error, try again!");
+                }
+
+            }, function(response) {
+              console.log(response);
+              //alert("funcResponse: "+response);
+            });
+        };
 
         function syncVotesFunc4Up(){
             alert("inside syncVotesFunc4Up");
