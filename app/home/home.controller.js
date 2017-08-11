@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('HomeController', HomeController);
+        .controller('HomeController', HomeController)
+        .filter('toDateObj', toDateObj);
 
     HomeController.$inject = ['$location', '$scope', '$http'];
-
     function HomeController($location, $scope, $http) {
         var vm = this;
 
@@ -116,9 +116,21 @@
             
         }
 
+        function Ctrl($scope) {
+            $scope.date = new Date("1990-11-25 14:35:00");
+        }
+
         function syncVotesFunc4Up(){
             alert("inside syncVotesFunc4Up");
         }
+
+    }
+
+    //toDateObj.$inject = ['$scope'];
+    function toDateObj() {
+        return function(dateString) {
+            return new Date(dateString);
+        };   
     }
 
 })();

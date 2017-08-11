@@ -24,10 +24,10 @@
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small' id='createdBy'><label class='text-muted'>Created By: 
 				</label> {{topic.createdBy}}</label>
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small' id='createdAt'><label class='text-muted'>Created At: 
-				</label> {{topic.createdAt | date}} </label>
-				</br>&nbsp&nbsp<button class='btn btn-xs' id='upvoteBtnVar' name='upvoteBtnVar' ng-click='"+syncVotesFunc4Up+"'>
+				</label> {{topic.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy'}} </label>
+				</br>&nbsp&nbsp<button class='btn btn-xs' id='upvoteBtnVar' name='upvoteBtnVar' ng-click='syncVotesFunc4Up()'>
 				<img class='upvote-img' id='upvote'></img></button>
-				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down'>
+				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down()'>
 				<img class='downvote-img' id='downvote'></img></button>
 
 				<div id='commentListVar' class='marginRow' ng-repeat="comment in topic.commentList">
@@ -35,7 +35,7 @@
 						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy'>{{comment.createdBy}}</label>
 						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' readonly='true' id='commentValue' 
 						value='{{comment.value}}'></input>
-						<label class='small' id='commentCreatedAt'>{{comment.createdAt}}</label>
+						<label class='small' id='commentCreatedAt'>{{comment.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy' }}</label>
 					</div>
 				</div>
 
