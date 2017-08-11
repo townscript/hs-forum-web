@@ -27,6 +27,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/createTopic', {
+                controller: 'TopicController',
+                templateUrl: 'topic/topic.view.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/login' });
     }
 

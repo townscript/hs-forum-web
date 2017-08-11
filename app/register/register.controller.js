@@ -10,7 +10,7 @@
         //alert("inside register");
         var vm = this;
 
-        vm.register = register;
+        //vm.register = register;
 
         function register() {
             $scope.success = true;

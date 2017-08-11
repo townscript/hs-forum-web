@@ -1,15 +1,17 @@
 ﻿<body ng-controller="HomeController as home">
 <div id='container' class='container navbar navbar-default'>
 	<div class='row bg-info text-primary'>
-		<a class='nav navbar-brand'><b>ForumApp</b></a>
-		<!-- <ul class='list-unstyled list-inline nav navbar-nav navbar-right'>
-			<li><a class='nav navbar-nav navbar-brand' href='home.html'>Home</a></li>
-		</ul> -->
+		<div class='col-md-2'>
+			<a class='nav navbar-brand'><b>ForumApp</b></a>
+		</div>
+		<ul class='list-unstyled list-inline nav navbar-nav navbar-right'>
+			<li><a class='nav navbar-nav navbar-brand' href='#/login'>Logout</a></li>
+		</ul>
 	</div>
 	
 	<div class='row well well-lg'>
 		<div class='row right'>
-			<a name='createTopic' id='createTopic' href="#!/createTopic" class='btn btn-primary btn-md pull-right'>Create Topic</a>
+			<a name='createTopic' id='createTopic' href="#/createTopic" class='btn btn-primary btn-md pull-right'>Create Topic</a>
 		</div>
 		</br>
 		<div id="topicList" ng-repeat="topic in topics">
@@ -29,7 +31,7 @@
 				<img class='upvote-img' id='upvote'></img></button>
 				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down()'>
 				<img class='downvote-img' id='downvote'></img></button>
-				
+
 				<div id='commentListVar' class='marginRow' ng-repeat="comment in topic.commentList">
 					<div class='row well marginRow'>
 						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy'>{{comment.createdBy}}</label>
@@ -38,7 +40,7 @@
 						<label class='small' id='commentCreatedAt'>{{comment.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy' }}</label>
 					</div>
 				</div>
-				
+
 			</div>
 
 		</div>
