@@ -13,13 +13,6 @@
 		</div>
 		</br>
 		<div id="topicList" ng-repeat="topic in topics">
-			<!-- <ul class='list-group-item'>
-				<li class="list-group-item" ng-repeat="topic in topics">
-					<h3>
-					{{topic.title}}
-					</h3>
-				</li>
-			</ul> -->
 
 			<!-- var topicI="topic-"+i; -->
 			<div id='{{topic.id}}' class='row well well-lg marginTopics'>
@@ -37,8 +30,16 @@
 				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down'>
 				<img class='downvote-img' id='downvote'></img></button>
 
-			</div>
+				<div id='commentListVar' class='marginRow' ng-repeat="comment in topic.commentList">
+					<div class='row well marginRow'>
+						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy'>{{comment.createdBy}}</label>
+						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' readonly='true' id='commentValue' 
+						value='{{comment.value}}'></input>
+						<label class='small' id='commentCreatedAt'>{{comment.createdAt}}</label>
+					</div>
+				</div>
 
+			</div>
 
 		</div>
 		<div id="userIdDiv">
