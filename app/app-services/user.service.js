@@ -11,6 +11,7 @@
 
         service.SetUsername = SetUsername;
         service.ResetUsername = ResetUsername;
+        service.GetUsername = GetUsername;
 
         return service;
 
@@ -24,6 +25,10 @@
 
         function ResetUsername() {
             $rootScope.globals = {};
+        }
+
+        function GetUsername() {
+            return $rootScope.globals.currentUser.username;
         }
         
     }

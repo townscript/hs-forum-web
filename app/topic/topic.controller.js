@@ -5,13 +5,22 @@
         .module('app')
         .controller('TopicController', TopicController);
 
-    TopicController.$inject = ['$location', '$scope', '$http'];
-    function TopicController($location, $scope, $http) {
-        /*var uname= $scope.username;*/
-        var uname= "swap8";
-        //alert("username: "+uname);
+    TopicController.$inject = ['$location', '$scope', '$http', 'UserService'];
+    function TopicController($location, $scope, $http, UserService) {
         var vm = this;
         vm.createTopic = createTopic;
+        vm.doLogout = doLogout;
+        /*var uname= $scope.username;*/
+        //var uname= "swap8";
+        var uname = UserService.GetUsername();
+        
+        if(uname != null) {
+            vm.user = uname;    
+        } else {
+            alert("Login required!");
+        }
+
+        //alert("username: "+uname);
         
         function createTopic() {
             $scope.success = true;
@@ -39,6 +48,12 @@
                 });
 
         };
+
+        function doLogout() {
+            UserService.ResetUsername();
+            $location.path('/login');
+        }
+
     }
 
 })();
