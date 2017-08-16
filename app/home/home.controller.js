@@ -11,14 +11,11 @@
     function HomeController($location, $scope, $http) {
         var vm = this;
         //vm.user = null;
-        
         //var obj = JSON.parse(jsonData);
         //var topicList= obj.topicList;
         //vm.topics=jsonData.topicList;
         //this.topics=jsonData.topicList;
-
         //$scope.topics=jsonData.topicList;
-
         //alert(JSON.stringify(jsonData.topicList));
 
         initController();
@@ -31,7 +28,6 @@
 
             var topicsUrl = "http://localhost:8080/rest/topic/getAllTopics";
             $scope.success = true;
-            //alert("inside getAllTopics...");
             vm.dataLoading = true;
 
             $http({method: "GET", url: topicsUrl, 
@@ -41,7 +37,6 @@
                   //console.log(response);
                 var data = angular.fromJson(response.data)
                 if(data.status=="success"){
-                    //alert("success");
                     $scope.topics=data.topicList;
 
                 } else{
@@ -51,7 +46,6 @@
 
             }, function(response) {
               console.log(response);
-              //alert("funcResponse: "+response);
             });
         };
 
