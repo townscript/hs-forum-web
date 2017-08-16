@@ -5,15 +5,14 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', '$http'];
-    function LoginController($location, $scope, $http) {
+    LoginController.$inject = ['$location', '$scope', '$rootScope', '$http', 'UserService'];
+    function LoginController($location, $scope, $rootScope, $http, UserService) {
         var vm = this;
         vm.login = login;
 
         function login() {
             $scope.success = true;
             $scope.username=vm.username;
-            //alert("inside login...");
             vm.dataLoading = true;
 
             var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
@@ -27,6 +26,7 @@
                   //alert("response.data: "+JSON.stringify(response.data));
                   //alert("response.data: "+response.data);
                   if(response.data){
+                    UserService.SetUsername(vm.username);
                     $location.path('/home');
 
                   } else{
@@ -36,10 +36,10 @@
 
                 }, function(response) {
                   console.log(response);
-                  //alert("funcResponse: "+response);
                 });
 
         };
+
     }
 
 })();
