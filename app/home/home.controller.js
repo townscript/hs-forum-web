@@ -11,8 +11,11 @@
     function HomeController($location, $scope, $http, UserService) {
         var vm = this;
         vm.doLogout = doLogout;
+        vm.addComment = addComment;
 
         var uname = UserService.GetUsername();
+
+        //vm.comment = {};
 
         if(uname != null) {
             vm.user = uname;    
@@ -25,10 +28,9 @@
         //var obj = JSON.parse(jsonData);
         //var topicList= obj.topicList;
         //vm.topics=jsonData.topicList;
-        //this.topics=jsonData.topicList;
-
+        //this.topics={};
+        //vm.topics={};
         //$scope.topics=jsonData.topicList;
-
         //alert(JSON.stringify(jsonData.topicList));
 
         initController();
@@ -52,7 +54,9 @@
                 var data = angular.fromJson(response.data)
                 if(data.status=="success"){
                     //alert("success");
-                    $scope.topics=data.topicList;
+                    //$scope.topics=data.topicList;
+                    //this.topics=data.topicList;
+                    vm.topics=data.topicList;
 
                 } else{
                     vm.dataLoading = false;
@@ -64,6 +68,22 @@
               //alert("funcResponse: "+response);
             });
         };
+
+        function addComment(topic) {
+            //this.comment = {};
+            //this.comment.createdBy = vm.comment.createdBy;
+            alert(JSON.stringify(topic));
+            alert(JSON.stringify(this.comment));
+
+            this.comment.createdBy = vm.user;
+            this.comment.createdAt = new Date();
+            this.comment.value = vm.comment.value;
+            alert(JSON.stringify(this.comment));
+            topic.commentList.push(this.comment);
+            this.comment = {};
+            alert(JSON.stringify(this.comment));
+
+        }
 
         function doLogout() {
             UserService.ResetUsername();

@@ -14,7 +14,7 @@
 			<a name='createTopic' id='createTopic' href="#/createTopic" class='btn btn-primary btn-md pull-right'>Create Topic</a>
 		</div>
 		</br>
-		<div id="topicList" ng-repeat="topic in topics">
+		<div id="topicList" ng-repeat="topic in vm.topics">
 
 			<!-- var topicI="topic-"+i; -->
 			<div id='{{topic.id}}' class='row well well-lg marginTopics'>
@@ -32,14 +32,24 @@
 				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down()'>
 				<img class='downvote-img' id='downvote'></img></button>
 
-				<div id='commentListVar' class='marginRow' ng-repeat="comment in topic.commentList">
+				<div id='commentList-{{topic.id}}' class='marginRow' ng-repeat="comment in topic.commentList">
 					<div class='row well marginRow'>
-						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy'>{{comment.createdBy}}</label>
-						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' readonly='true' id='commentValue' 
+						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy-{{topic.id}}-{{comment.id}}'>{{comment.createdBy}}</label>
+						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' readonly='true' id='commentValue-{{topic.id}}-{{comment.id}}' 
 						value='{{comment.value}}'></input>
-						<label class='small' id='commentCreatedAt'>{{comment.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy' }}</label>
+						<label class='small' id='commentCreatedAt-{{topic.id}}-{{comment.id}}'>{{comment.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy' }}</label>
 					</div>
 				</div>
+
+				<form name='commentForm' ng-submit="vm.addComment(topic)">
+					<div class='row well marginRow'>
+						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy' ng-model='vm.comment.createdBy'>{{vm.user}}</label>
+						<input type='hidden' class='small' id='commentCreatedAt' />
+						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' id='commentValue' 
+						value='' ng-model='vm.comment.value'></input>
+						<input type="submit" value="Add" class="btn btn-info btn-xs" />
+					</div>
+				</form>
 
 			</div>
 
