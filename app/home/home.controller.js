@@ -72,16 +72,40 @@
         function addComment(topic) {
             //this.comment = {};
             //this.comment.createdBy = vm.comment.createdBy;
-            alert(JSON.stringify(topic));
-            alert(JSON.stringify(this.comment));
+            //alert(JSON.stringify(topic));
+            //alert(JSON.stringify(this.comment));
 
             this.comment.createdBy = vm.user;
             this.comment.createdAt = new Date();
             this.comment.value = vm.comment.value;
-            alert(JSON.stringify(this.comment));
+            //alert(JSON.stringify(this.comment));
             topic.commentList.push(this.comment);
+
+            var newCommentURL = "http://localhost:8080/rest/comment/newComment?dataJson=";
+            var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+vm.comment.value+"\"}";
+
+            $scope.success = true;
+            vm.dataLoading = true;
+
+            $http({method: "POST", url: newCommentURL+dataJson, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                if(response.data != null){
+                    //
+                    
+                } else{
+                    //$scope.success = false;
+                    alert("Some error, please try again!");
+                    vm.dataLoading = false;
+                }
+
+            }, function(response) {
+                  console.log(response);
+            });
+
             this.comment = {};
-            alert(JSON.stringify(this.comment));
+            //alert(JSON.stringify(this.comment));
 
         }
 
