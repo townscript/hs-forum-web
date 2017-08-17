@@ -5,8 +5,8 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', '$http'];
-    function LoginController($location, $scope, $http) {
+    LoginController.$inject = ['$location', '$scope', '$rootScope', '$http', 'UserService'];
+    function LoginController($location, $scope, $rootScope, $http, UserService) {
         var vm = this;
         vm.login = login;
 
@@ -25,6 +25,7 @@
                   //console.log(response);
                   //alert("response.data: "+JSON.stringify(response.data));
                   if(response.data){
+                    UserService.SetUsername(vm.username);
                     $location.path('/home');
 
                   } else{
@@ -37,6 +38,7 @@
                 });
 
         };
+
     }
 
 })();

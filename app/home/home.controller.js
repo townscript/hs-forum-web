@@ -7,10 +7,21 @@
         .filter('toDateObj', toDateObj);
         //.filter('reverse', reverse);
 
-    HomeController.$inject = ['$location', '$scope', '$http'];
-    function HomeController($location, $scope, $http) {
+    HomeController.$inject = ['$location', '$scope', '$http', 'UserService'];
+    function HomeController($location, $scope, $http, UserService) {
         var vm = this;
         //vm.user = null;
+        vm.doLogout = doLogout;
+
+        var uname = UserService.GetUsername();
+
+        if(uname != null) {
+            vm.user = uname;    
+        } else {
+            alert("Login required!");
+        }
+
+        //alert("user is: "+vm.user);
         //var obj = JSON.parse(jsonData);
         //var topicList= obj.topicList;
         //vm.topics=jsonData.topicList;
@@ -48,6 +59,11 @@
               console.log(response);
             });
         };
+
+        function doLogout() {
+            UserService.ResetUsername();
+            $location.path('/login');
+        }
 
         function syncVotesFunc4Up(){
             alert("inside syncVotesFunc4Up");
