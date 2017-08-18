@@ -11,6 +11,7 @@
     "angular-resource": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
+    "angular-cookies": "~1.4.0",
     "html5-boilerplate": "^5.3.0",
     "jquery": "^1.10.2"
   },

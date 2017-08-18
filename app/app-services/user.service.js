@@ -5,8 +5,8 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$rootScope'];
-    function UserService($rootScope) {
+    UserService.$inject = ['$rootScope', '$cookies'];
+    function UserService($rootScope, $cookies) {
         var service = {};
 
         service.SetUsername = SetUsername;
@@ -16,20 +16,22 @@
         return service;
 
         function SetUsername(username) {
-            $rootScope.globals = {
+            /*$rootScope.globals = {
                 currentUser: {
                     username: username
                 }
-            };
+            };*/
+            $cookies.put("user", vm.username);
         }
 
         function ResetUsername() {
-            $rootScope.globals = {};
+            //$rootScope.globals = {};
+            $cookies.put("user", "");
         }
 
         function GetUsername() {
             //return $rootScope.globals.currentUser.username;
-            return "swap8";
+            return $cookies.get("user");
         }
         
     }
