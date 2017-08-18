@@ -12,7 +12,7 @@
 
         function login() {
             $scope.success = true;
-            $scope.username=vm.username;
+            //$scope.username=vm.username;
             vm.dataLoading = true;
 
             var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
@@ -39,7 +39,6 @@
                 });
 
         };
-
     }
 
 })();

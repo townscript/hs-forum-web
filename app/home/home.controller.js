@@ -127,7 +127,8 @@
         }
 
         function syncVotesFunc(topic, currentVoteValue){
-            var username="swap8";
+            //var username="swap8";
+            var username=UserService.GetUsername();
             //this.topic= vm.topic;
             this.topic= topic;
 
