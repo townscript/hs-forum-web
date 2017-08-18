@@ -12,8 +12,17 @@
         var vm = this;
         //vm.user = null;
         vm.doLogout = doLogout;
+        vm.addComment = addComment;
+        vm.syncVotesFunc = syncVotesFunc;
 
         var uname = UserService.GetUsername();
+
+        var isVotedYes="Y";
+        var isVotedNo="N";
+        var upVoteValue="1";
+        var downVoteValue="2";
+
+        //vm.comment = {};
 
         if(uname != null) {
             vm.user = uname;    
@@ -26,6 +35,8 @@
         //var topicList= obj.topicList;
         //vm.topics=jsonData.topicList;
         //this.topics=jsonData.topicList;
+        //this.topics={};
+        //vm.topics={};
         //$scope.topics=jsonData.topicList;
         //alert(JSON.stringify(jsonData.topicList));
 
@@ -48,7 +59,11 @@
                   //console.log(response);
                 var data = angular.fromJson(response.data)
                 if(data.status=="success"){
-                    $scope.topics=data.topicList;
+                    //$scope.topics=data.topicList;
+                    //alert("success");
+                    //$scope.topics=data.topicList;
+                    //this.topics=data.topicList;
+                    vm.topics=data.topicList;
 
                 } else{
                     vm.dataLoading = false;
@@ -60,13 +75,125 @@
             });
         };
 
+        function addComment(topic) {
+            //this.comment = {};
+            //this.comment.createdBy = vm.comment.createdBy;
+            //alert(JSON.stringify(topic));
+            //alert(JSON.stringify(this.comment));
+
+            this.comment.createdBy = vm.user;
+            this.comment.createdAt = new Date();
+            this.comment.value = vm.comment.value;
+            //alert(JSON.stringify(this.comment));
+
+            if(this.comment.value !=null && this.comment.value.length >0) {
+                topic.commentList.push(this.comment);
+
+                var newCommentURL = "http://localhost:8080/rest/comment/newComment?dataJson=";
+                var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+vm.comment.value+"\"}";
+
+                $scope.success = true;
+                vm.dataLoading = true;
+
+                $http({method: "POST", url: newCommentURL+dataJson, 
+                    headers: {'Access-Control-Allow-Origin':'*'}
+                })
+                .then(function(response) {
+                    if(response.data != null){
+                        //
+
+                    } else{
+                        //$scope.success = false;
+                        alert("Some error, please try again!");
+                        vm.dataLoading = false;
+                    }
+
+                }, function(response) {
+                      console.log(response);
+                });
+            
+            } else {
+                alert("Comment value should not be empty!");
+            }
+            
+            this.comment = {};
+            //alert(JSON.stringify(this.comment));
+
+        }
+
         function doLogout() {
             UserService.ResetUsername();
             $location.path('/login');
         }
 
-        function syncVotesFunc4Up(){
-            alert("inside syncVotesFunc4Up");
+        function syncVotesFunc(topic, currentVoteValue){
+            var username="swap8";
+            //this.topic= vm.topic;
+            this.topic= topic;
+
+            var upVoteCount = topic.upVoteCount;
+            var downVoteCount = topic.downVoteCount;
+
+            var oldVoteValue = topic.oldVoteValue;
+
+            if(oldVoteValue !=null) { //means user has already voted
+                if(oldVoteValue == upVoteValue && currentVoteValue == downVoteValue) {
+                    downVoteCount+=1;
+                    if(upVoteCount>0){
+                        upVoteCount-=1;
+                    }
+
+                } else if (oldVoteValue == downVoteValue && currentVoteValue == upVoteValue) {
+                    upVoteCount+=1;
+                    if(downVoteCount>0){
+                        downVoteCount-=1;
+                    }
+                }
+
+            } else { //means user has not voted yet
+
+                //oldVoteValue = currentVoteValue;
+                if(currentVoteValue == upVoteValue) {
+                    upVoteCount+=1;
+                    if(downVoteCount>0){
+                        downVoteCount-=1;
+                    }    
+
+                } else if (currentVoteValue == downVoteValue) {
+                    downVoteCount+=1;
+                    if(upVoteCount>0){
+                        upVoteCount-=1;
+                    }
+                }
+            }
+
+            /*if(oldVoteValue == null) {
+                oldVoteValue = currentVoteValue;
+            }*/
+            oldVoteValue = currentVoteValue;
+
+            this.topic.upVoteCount= upVoteCount;
+            this.topic.downVoteCount=downVoteCount;
+            this.topic.oldVoteValue = oldVoteValue;
+
+            var submitVoteURL = "http://localhost:8080/rest/comment/submitVote?dataJson=";
+            /*var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.username+"\",\"voteValue\":\""+currentVoteValue+"\"}";*/
+            var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+username+"\",\"voteValue\":\""+currentVoteValue+"\"}";
+            
+            $http({method: "POST", url: submitVoteURL+dataJson, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                if(response.data != null && response.data == "Forum_SUCCESS"){
+                    
+                }else{
+                    alert("Some error, please try again!");
+                }
+
+                }, function(response) {
+                  console.log(response);
+            });
+
         }
 
     }

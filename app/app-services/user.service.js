@@ -28,7 +28,8 @@
         }
 
         function GetUsername() {
-            return $rootScope.globals.currentUser.username;
+            //return $rootScope.globals.currentUser.username;
+            return "swap8";
         }
         
     }
