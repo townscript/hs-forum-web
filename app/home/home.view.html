@@ -27,10 +27,11 @@
 				</label> {{topic.createdBy}}</label>
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label class='small' id='createdAt'><label class='text-muted'>Created At: 
 				</label> {{topic.createdAt | toDateObj | date: 'HH:mm:ss d,MMM,yyyy'}} </label>
-				</br>&nbsp&nbsp<button class='btn btn-xs' id='upvoteBtnVar' name='upvoteBtnVar' ng-click='syncVotesFunc4Up()'>
+				</br>&nbsp&nbsp<button class='btn btn-xs' id='upvoteBtnVar' name='upvoteBtnVar' ng-model='vm.topic.upVoteCount' ng-click='vm.syncVotesFunc(topic,"1")'>
 				<img class='upvote-img' id='upvote'></img></button>
-				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-click='syncVotesFunc4Down()'>
+				&nbsp&nbsp<button class='btn btn-xs' id='downvoteBtnVar' name='downvoteBtnVar' ng-model='vm.topic.downVoteCount' ng-click='vm.syncVotesFunc(topic,"2")'>
 				<img class='downvote-img' id='downvote'></img></button>
+				<input type='hidden' class='small' id='oldVoteValue-{{topic.id}}' ng-model='vm.topic.oldVoteValue' />
 
 				<div id='commentList-{{topic.id}}' class='marginRow' ng-repeat="comment in topic.commentList">
 					<div class='row well marginRow'>

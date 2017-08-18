@@ -12,8 +12,14 @@
         var vm = this;
         vm.doLogout = doLogout;
         vm.addComment = addComment;
+        vm.syncVotesFunc = syncVotesFunc;
 
         var uname = UserService.GetUsername();
+
+        var isVotedYes="Y";
+        var isVotedNo="N";
+        var upVoteValue="1";
+        var downVoteValue="2";
 
         //vm.comment = {};
 
@@ -79,31 +85,37 @@
             this.comment.createdAt = new Date();
             this.comment.value = vm.comment.value;
             //alert(JSON.stringify(this.comment));
-            topic.commentList.push(this.comment);
 
-            var newCommentURL = "http://localhost:8080/rest/comment/newComment?dataJson=";
-            var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+vm.comment.value+"\"}";
+            if(this.comment.value !=null && this.comment.value.length >0) {
+                topic.commentList.push(this.comment);
 
-            $scope.success = true;
-            vm.dataLoading = true;
+                var newCommentURL = "http://localhost:8080/rest/comment/newComment?dataJson=";
+                var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+vm.comment.value+"\"}";
 
-            $http({method: "POST", url: newCommentURL+dataJson, 
-                headers: {'Access-Control-Allow-Origin':'*'}
-            })
-            .then(function(response) {
-                if(response.data != null){
-                    //
-                    
-                } else{
-                    //$scope.success = false;
-                    alert("Some error, please try again!");
-                    vm.dataLoading = false;
-                }
+                $scope.success = true;
+                vm.dataLoading = true;
 
-            }, function(response) {
-                  console.log(response);
-            });
+                $http({method: "POST", url: newCommentURL+dataJson, 
+                    headers: {'Access-Control-Allow-Origin':'*'}
+                })
+                .then(function(response) {
+                    if(response.data != null){
+                        //
 
+                    } else{
+                        //$scope.success = false;
+                        alert("Some error, please try again!");
+                        vm.dataLoading = false;
+                    }
+
+                }, function(response) {
+                      console.log(response);
+                });
+            
+            } else {
+                alert("Comment value should not be empty!");
+            }
+            
             this.comment = {};
             //alert(JSON.stringify(this.comment));
 
@@ -114,8 +126,54 @@
             $location.path('/login');
         }
 
-        function syncVotesFunc4Up(){
-            alert("inside syncVotesFunc4Up");
+        function syncVotesFunc(topic, currentVoteValue){
+            //this.topic= vm.topic;
+            this.topic= topic;
+
+            var upVoteCount = topic.upVoteCount;
+            var downVoteCount = topic.downVoteCount;
+
+            var oldVoteValue = topic.oldVoteValue;
+
+            if(oldVoteValue !=null) { //means user has already voted
+                if(oldVoteValue == upVoteValue && currentVoteValue == downVoteValue) {
+                    downVoteCount+=1;
+                    if(upVoteCount>0){
+                        upVoteCount-=1;
+                    }
+
+                } else if (oldVoteValue == downVoteValue && currentVoteValue == upVoteValue) {
+                    upVoteCount+=1;
+                    if(downVoteCount>0){
+                        downVoteCount-=1;
+                    }
+                }
+
+            } else { //means user has not voted yet
+
+                //oldVoteValue = currentVoteValue;
+                if(currentVoteValue == upVoteValue) {
+                    upVoteCount+=1;
+                    if(downVoteCount>0){
+                        downVoteCount-=1;
+                    }    
+
+                } else if (currentVoteValue == downVoteValue) {
+                    downVoteCount+=1;
+                    if(upVoteCount>0){
+                        upVoteCount-=1;
+                    }
+                }
+            }
+
+            /*if(oldVoteValue == null) {
+                oldVoteValue = currentVoteValue;
+            }*/
+            oldVoteValue = currentVoteValue;
+
+            this.topic.upVoteCount= upVoteCount;
+            this.topic.downVoteCount=downVoteCount;
+            this.topic.oldVoteValue = oldVoteValue;
         }
 
     }
