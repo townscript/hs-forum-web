@@ -15,6 +15,7 @@
         vm.syncVotesFunc = syncVotesFunc;
 
         var uname = UserService.GetUsername();
+        alert("username: "+uname);
 
         var isVotedYes="Y";
         var isVotedNo="N";
@@ -80,8 +81,8 @@
             //this.comment.createdBy = vm.comment.createdBy;
             //alert(JSON.stringify(topic));
             //alert(JSON.stringify(this.comment));
-
-            this.comment.createdBy = vm.user;
+            
+            this.comment.createdBy = uname;
             this.comment.createdAt = new Date();
             this.comment.value = vm.comment.value;
             //alert(JSON.stringify(this.comment));
@@ -178,7 +179,6 @@
             this.topic.oldVoteValue = oldVoteValue;
 
             var submitVoteURL = "http://localhost:8080/rest/comment/submitVote?dataJson=";
-            /*var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.username+"\",\"voteValue\":\""+currentVoteValue+"\"}";*/
             var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+username+"\",\"voteValue\":\""+currentVoteValue+"\"}";
             
             $http({method: "POST", url: submitVoteURL+dataJson, 
