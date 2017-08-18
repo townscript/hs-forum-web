@@ -127,6 +127,7 @@
         }
 
         function syncVotesFunc(topic, currentVoteValue){
+            var username="swap8";
             //this.topic= vm.topic;
             this.topic= topic;
 
@@ -174,6 +175,25 @@
             this.topic.upVoteCount= upVoteCount;
             this.topic.downVoteCount=downVoteCount;
             this.topic.oldVoteValue = oldVoteValue;
+
+            var submitVoteURL = "http://localhost:8080/rest/comment/submitVote?dataJson=";
+            /*var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.username+"\",\"voteValue\":\""+currentVoteValue+"\"}";*/
+            var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+username+"\",\"voteValue\":\""+currentVoteValue+"\"}";
+            
+            $http({method: "POST", url: submitVoteURL+dataJson, 
+                headers: {'Access-Control-Allow-Origin':'*'}
+            })
+            .then(function(response) {
+                if(response.data != null && response.data == "Forum_SUCCESS"){
+                    
+                }else{
+                    alert("Some error, please try again!");
+                }
+
+                }, function(response) {
+                  console.log(response);
+            });
+
         }
 
     }
