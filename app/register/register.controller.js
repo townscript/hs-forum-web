@@ -10,19 +10,16 @@
 
         $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
         $scope.mobileFormat = /^((\+?(\d{2})([-]|[ ])?)|[0]?)?\d{10}$/;
-
-        //alert("inside register");
+        
         var vm = this;
         vm.register = register;
         vm.validatePwd = validatePwd;
 
         function register() {
             $scope.success = true;
-            //alert("inside register...");
             vm.dataLoading = true;
 
             var signupUrl="http://localhost:8080/rest/user/newUser?dataJson=";
-            
             var dataJson="{\"userName\":\""+vm.user.username+"\",\"userPassword\":\""+vm.user.password+"\",\"userEmail\":\""+vm.user.email+"\",\"userMobile\":\""+vm.user.mobile+"\",\"userPropic\":\"\"}";
 
             $http({method: "POST", url: signupUrl+dataJson, 
@@ -30,7 +27,6 @@
             })
             .then(function(response) {
                   //console.log(response);
-                  //alert("response.data: "+JSON.stringify(response.data));
                   if(response.data){
                     $location.path('/login');
 
@@ -41,7 +37,6 @@
 
                 }, function(response) {
                   console.log(response);
-                  //alert("funcResponse: "+response);
                 });
 
         };
