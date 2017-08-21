@@ -18,7 +18,7 @@
                         <label> Title </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='title' name='title' ng-model="vm.topic.title" required/>
+                        <input type='text' id='title' name='title' ng-model="vm.topic.title" ng-minlength="5" ng-maxlength="500" required/>
                     </div>
                 </div>
                 <div class='row'>
@@ -26,7 +26,7 @@
                         <label> Description </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='description' name='description' ng-model="vm.topic.description" required/>
+                        <input type='text' id='description' name='description' ng-model="vm.topic.description"  ng-minlength="5" ng-maxlength="1000" required/>
                     </div>
                 </div>
                 <div class='row'>
@@ -34,7 +34,7 @@
                         <label> Tags </label> 
                     </div>
                     <div class='col-md-5'>
-                        <input type='text' id='tags' name='tags' ng-model="vm.topic.tags" placeholder='e.g. sports,music, etc'/>
+                        <input type='text' id='tags' name='tags' ng-model="vm.topic.tags"  ng-minlength="3" ng-maxlength="200" placeholder='e.g. sports,music, etc'/>
                     </div>
                 </div>
                 <div class='row'>
