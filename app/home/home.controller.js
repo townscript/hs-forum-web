@@ -22,6 +22,8 @@
         var upVoteValue="1";
         var downVoteValue="2";
 
+        //$scope.newComment = {};
+
         //vm.comment = {};
 
         if(uname != null) {
@@ -80,17 +82,18 @@
             //this.comment.createdBy = vm.comment.createdBy;
             //alert(JSON.stringify(topic));
             //alert(JSON.stringify(this.comment));
-
-            this.comment.createdBy = vm.user;
-            this.comment.createdAt = new Date();
-            this.comment.value = vm.comment.value;
+            this.comment['new_comment_field_' + topic.id].createdBy = uname;
+            this.comment['new_comment_field_' + topic.id].createdAt = new Date();
+            //this.comment.value = vm.comment.value;
+            var commentValue = this.comment['new_comment_field_' + topic.id].value;
+            //this.comment.value = $scope.commentValue;
             //alert(JSON.stringify(this.comment));
 
-            if(this.comment.value !=null && this.comment.value.length >0) {
-                topic.commentList.push(this.comment);
+            if(commentValue !=null && commentValue.length >0) {
+                topic.commentList.push(this.comment['new_comment_field_' + topic.id]);
 
                 var newCommentURL = "http://localhost:8080/rest/comment/newComment?dataJson=";
-                var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+vm.comment.value+"\"}";
+                var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.user+"\",\"commentValue\":\""+commentValue+"\"}";
 
                 $scope.success = true;
                 vm.dataLoading = true;
@@ -127,7 +130,8 @@
         }
 
         function syncVotesFunc(topic, currentVoteValue){
-            var username="swap8";
+            //var username="swap8";
+            var username=UserService.GetUsername();
             //this.topic= vm.topic;
             this.topic= topic;
 
@@ -177,7 +181,6 @@
             this.topic.oldVoteValue = oldVoteValue;
 
             var submitVoteURL = "http://localhost:8080/rest/comment/submitVote?dataJson=";
-            /*var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+vm.username+"\",\"voteValue\":\""+currentVoteValue+"\"}";*/
             var dataJson= "{\"topicId\":\""+topic.id+"\",\"userName\":\""+username+"\",\"voteValue\":\""+currentVoteValue+"\"}";
             
             $http({method: "POST", url: submitVoteURL+dataJson, 

@@ -21,7 +21,7 @@
                     username: username
                 }
             };*/
-            $cookies.put("user", vm.username);
+            $cookies.put("user", username);
         }
 
         function ResetUsername() {

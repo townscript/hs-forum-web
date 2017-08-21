@@ -5,7 +5,7 @@
     </div>
     <div id='usersignup'>
         
-        <form name="form" ng-submit='vm.register()'>
+        <form name="form" ng-submit='form.$valid && vm.register()'>
             <div class='row well well-lg'>
                 <div class='row' id="usersignup_header">
                     <h3><span>User SignUp</span></h3>
@@ -15,7 +15,14 @@
                         <label> Email Id </label> 
                     </div>
                     <div class='col-md-6'>
-                        <input type='text' id="email" name='email' ng-model='vm.user.email' required/>
+                        <input type='text' id="email" name='email' ng-minlength="5" ng-maxlength="100" ng-pattern="emailFormat" placeholder="abc@xyz.com" ng-model='vm.user.email' required/>
+                        &nbsp&nbsp
+                        <span class="error text-warning" ng-show="form.email.$error.required">
+                            Required!
+                        </span>
+                        <span class="error text-danger" ng-show="form.email.$error.pattern">
+                            Invalid email!
+                        </span>
                     </div>
                 </div>
                 <div class='row'>
@@ -23,7 +30,14 @@
                         <label> Mobile Number </label> 
                     </div>
                     <div class='col-md-6'>
-                        <input type="text" id="mobile" name='mobile' ng-model='vm.user.mobile' required/>
+                        <input type="text" id="mobile" name='mobile' ng-minlength="10" ng-maxlength="15" ng-pattern="mobileFormat" ng-model='vm.user.mobile' required/>
+                        &nbsp&nbsp
+                        <span class="error text-warning" ng-show="form.mobile.$error.required">
+                            Required!
+                        </span>
+                        <span class="error text-danger" ng-show="form.mobile.$error.pattern">
+                            Invalid mobile number!
+                        </span>
                     </div>
                 </div>
                 <div class='row'>
@@ -31,7 +45,11 @@
                         <label> User Name </label> 
                     </div>
                     <div class='col-md-6'>
-                        <input type="text" id="username" name='username' ng-model='vm.user.username' required/>
+                        <input type="text" id="username" name='username' ng-minlength="4" ng-maxlength="50" ng-model='vm.user.username' required/>
+                        &nbsp&nbsp
+                        <span class="error text-danger" ng-if="!form.username.$valid">
+                            Required length atleast four.
+                        </span>
                     </div>
                 </div>
                 <div class='row'>
@@ -39,7 +57,14 @@
                         <label> Password </label> 
                     </div>
                     <div class='col-md-6'>
-                        <input type='password' id="password" name='password' autocomplete="off" ng-model='vm.user.password' required/>
+                        <input type='password' id="password" name='password' autocomplete="off" ng-minlength="2" ng-maxlength="100"  ng-model='vm.user.password' required/>
+                        &nbsp&nbsp
+                        <span class="error text-warning" ng-show="form.password.$error.required">
+                            Required!
+                        </span>
+                        <!-- <span class="error text-danger" ng-if="!form.password.$valid">
+                            Required length atleast five.
+                        </span> -->
                     </div>
                 </div>
                 <div class='row'>
@@ -47,7 +72,7 @@
                         <label> Retype Password </label> 
                     </div>
                     <div class='col-md-6'>
-                        <input type='password' id="password2" name='password2' autocomplete="off" ng-model='vm.user.password2' required ng-blur="vm.validatePwd()"/>
+                        <input type='password' id="password2" name='password2' autocomplete="off" ng-minlength="2" ng-maxlength="100" ng-model='vm.user.password2' required ng-blur="vm.validatePwd()"/>
                     </div>
                 </div>
                 <div class='row'>
