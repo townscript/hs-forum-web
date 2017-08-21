@@ -67,9 +67,9 @@
                     vm.topics=data.topicList;
 
                 } else{
-                    vm.dataLoading = false;
                     alert("Some error, try again!");
                 }
+                vm.dataLoading = false;
 
             }, function(response) {
               console.log(response);
