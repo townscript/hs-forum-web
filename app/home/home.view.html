@@ -47,7 +47,7 @@
 						<label class='col-md-offset-0 col-md-1 small' id='commentCreatedBy' ng-model='vm.comment.createdBy'>{{vm.user}}</label>
 						<input type='hidden' class='small' id='commentCreatedAt' />
 						&nbsp&nbsp&nbsp&nbsp<input class='small col-md-7 bg-success' id='commentValue' 
-						value='' ng-model='vm.comment.value'></input>
+						value='' ng-model="vm.comment['new_comment_field_' + topic.id].value"></input>
 						<input type="submit" value="Add" class="btn btn-info btn-xs" />
 					</div>
 				</form>
