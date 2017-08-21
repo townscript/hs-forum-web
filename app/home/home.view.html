@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		</br>
-		<div id="topicList" ng-repeat="topic in vm.topics">
+		<div id="topicList" ng-repeat="topic in vm.topics | orderBy:'id':true">
 
 			<div id='{{topic.id}}' class='row well well-lg marginTopics'>
 				<label class='row well strong lead col-md-12 large bg-faded text-primary marginContents' id='title-topic-{{topic.id}}'>{{topic.title}}</label>
