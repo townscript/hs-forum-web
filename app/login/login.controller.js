@@ -12,7 +12,6 @@
 
         function login() {
             $scope.success = true;
-            //$scope.username=vm.username;
             vm.dataLoading = true;
 
             var loginUrl="http://localhost:8080/rest/login/checkLogin?dataJson=";
@@ -23,7 +22,6 @@
             })
             .then(function(response) {
                   //console.log(response);
-                  //alert("response.data: "+JSON.stringify(response.data));
                   if(response.data){
                     UserService.SetUsername(vm.username);
                     $location.path('/home');
@@ -35,7 +33,7 @@
 
                 }, function(response) {
                   console.log(response);
-                });
+            });
 
         };
     }

@@ -10,7 +10,7 @@
 
         $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
         $scope.mobileFormat = /^((\+?(\d{2})([-]|[ ])?)|[0]?)?\d{10}$/;
-
+        
         var vm = this;
         vm.register = register;
         vm.validatePwd = validatePwd;
@@ -27,7 +27,6 @@
             })
             .then(function(response) {
                   //console.log(response);
-                  //alert("response.data: "+JSON.stringify(response.data));
                   if(response.data){
                     $location.path('/login');
 
